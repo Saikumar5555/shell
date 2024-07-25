@@ -1,0 +1,11 @@
+export { default as Home } from './home';
+export { default as Fleet } from './fleet';
+export { default as Assign } from './assign';
+export { default as Notifications } from './notifications';
+export { default as ServiceHistory } from './serviceHistory';
+export { default as FuelHistory } from './fuelHistory';
+export { default as OverView } from './overView';
+export { default as WorkOrders } from './workOrders';
+export { default as Analytics } from './analytics';
+export { default as Drivers } from './drivers';
+export { default as Trips } from './trips';
