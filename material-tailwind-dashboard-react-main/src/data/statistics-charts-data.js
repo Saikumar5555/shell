@@ -114,14 +114,14 @@ export const statisticsChartsData = [
   },
   {
     color: "white",
-    title: "Cost Per Meter",
+    title: "Service Costs",
     description: "Last Campaign Performance",
     footer: "updated 4 min ago",
     chart: dailySalesChart,
   },
   {
     color: "white",
-    title: "Service Costs",
+    title: "Emissions ",
     description: "Last Campaign Performance",
     footer: "just updated",
     chart: completedTasksChart,

@@ -177,7 +177,7 @@ export const routes = [
 
       {
         icon: <ChartBarIcon {...icon} />,
-        name: "Analytics",
+        name: "Reports",
         path: "/analytics",
         element: <Analytics />,
       },

@@ -53,7 +53,13 @@ const tripDetails = [
           id: "L005",
           issue: "Transmission Problems",
           description: "Transmission experienced slipping gears."
-        }
+        },
+        {
+          id: "L005",
+          issue: "Transmission Problems",
+          description: "Transmission experienced slipping gears."
+        },
+ 
       ],
       location: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d119064.9002775156!2d78.99010926876952!3d21.161225995055403!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd4c0a5a31faf13%3A0x19b37d06d0bb3e2b!2sNagpur%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1721724856740!5m2!1sen!2sin",
       locationName: "Trip Location",
@@ -170,6 +176,7 @@ const tripDetails = [
           issue: "Transmission Problems",
           description: "Transmission experienced slipping gears."
         }
+        
       ],
       location: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d113874.30006231663!2d75.7081570970491!3d26.88533996481472!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396c4adf4c57e281%3A0xce1c63a0cf22e09!2sJaipur%2C%20Rajasthan!5e0!3m2!1sen!2sin!4v1721726064550!5m2!1sen!2sin",
       locationName: "Trip Location C",
@@ -260,8 +267,8 @@ function Trip() {
   return (
     <div className="p-4">
       {selectedVehicleId ? (
-        <div className="flex flex-col h-screen">
-           <Button  style={{ backgroundColor: '#FD6F52', borderColor: '#FD6F52' }} className="mb-6 self-start" onClick={handleBackClick}>
+        <div className="flex flex-col ">
+           <Button  style={{ backgroundColor: '#FF8F62', borderColor: '#FF8F62' }} className="mb-6 self-start" onClick={handleBackClick}>
             Back to Trip List
           </Button>
           <div className="flex flex-col lg:flex-row gap-6 flex-grow">
@@ -292,7 +299,7 @@ function Trip() {
                       </Typography>
                     </div>
                     <hr className="my-4 border-gray-300" />
-                    <div className="space-y-2">
+                    {/* <div className="space-y-2">
                       <Typography variant="h6" className="text-lg font-semibold">
                         Operating Cost Details
                       </Typography>
@@ -302,8 +309,8 @@ function Trip() {
                       <Typography variant="paragraph">
                         <strong>Monthly Maintenance Cost:</strong> {selectedTrip.operatingCost.maintenance}
                       </Typography>
-                    </div>
-                    <hr className="my-4 border-gray-300" />
+                    </div> */}
+                    {/* <hr className="my-4 border-gray-300" /> */}
                     <div className="space-y-2">
                       <Typography variant="h6" className="text-lg font-semibold">
                         Total Cost
@@ -339,7 +346,7 @@ function Trip() {
             </div>
 
             {/* Freight and Log Cards */}
-            <div className="lg:w-1/2 flex flex-col gap-6">
+            <div className="lg:w-1/2 flex flex-col gap-6 ">
               <Card className="w-full">
                 <CardBody>
                   <Typography variant="h5" className="mb-2 flex items-center">
@@ -372,20 +379,21 @@ function Trip() {
                 </CardBody>
               </Card>
 
-              <Card className="w-full">
-  <CardBody>
+
+  <Card className="w-full ">
+  <CardBody className="overflow-scroll h-[458px]">
     <Typography variant="h5" className="mb-2 flex items-center">
       <WrenchScrewdriverIcon className="h-6 w-6 mr-2" />
       Log
     </Typography>
     {selectedTrip.log.length > 0 ? (
       selectedTrip.log.map(log => (
-        <div key={log.id} className="mb-4">
+        <div key={log.id} className="mb-4 text-gray-700">
           <Typography variant="paragraph">
-            <strong>Log {log.id}:</strong> {log.issue}
+            <strong className="font-semibold ">Log {log.id}:</strong> {log.issue}
           </Typography>
           <Typography variant="paragraph">
-            <strong>Description:</strong> {log.description}
+            <strong className="font-semibold text-sm">Description:</strong> {log.description}
           </Typography>
           {/* <Typography variant="paragraph">
             <strong>Status:</strong> {log.status}
@@ -398,10 +406,43 @@ function Trip() {
   </CardBody>
 </Card>
 
-            </div>
-          </div>
+  </div>
+</div>
+  <Card className="mt-4">
+  <CardBody className="flex items-start flex-col space-x-6 p-6 shadow-lg rounded-lg bg-white w-full ">
+    <Typography variant="h5" className="text-gray-800 font-medium mb-6">
+      What If Analysis
+    </Typography>
+    <div className="flex gap-6">
+    <img
+      src="/img/truck5.png"
+      alt="Analysis"
+      className="h-80 w-100 object-cover rounded-lg border border-gray-200"
+    />
+    <div className="flex flex-col space-y-4 text-gray-700 w-full max-w-lg">
+      <Typography variant="body1">
+        <strong>Reduced emissions by 60 percent.</strong>
+      </Typography>
+      <Typography variant="body1">
+        <strong>Reduced fuel cost by 20 percent.</strong>
+      </Typography>
+      <Typography variant="body1">
+        <strong>Reduced maintenance cost by 30 percent.</strong>
+      </Typography>
+      <Typography variant="body1">
+        <strong>Reduction in downtime by 10 percent.</strong>
+      </Typography>
+    </div>
+    </div>
+   
+  </CardBody>
+</Card>
+
         </div>
+
+        
       ) : (
+
         <div>
           <Typography variant="h4" className="mb-6">
             Trip Details
@@ -440,7 +481,7 @@ function Trip() {
                       <strong>Time:</strong> {trip.time}
                     </Typography>
                     {/* <div style={{ display: 'flex', justifyContent: 'center'}}> */}
-                    <Button  className="d-flex justify-content-end" style={{ backgroundColor: '#FD6F52', borderColor: '#FD6F52' }} onClick={() => handleReportClick(trip.vehicleId)}>
+                    <Button  className="d-flex justify-content-end" style={{ backgroundColor: '#FF8F62', borderColor: '#FF8F62' }} onClick={() => handleReportClick(trip.vehicleId)}>
                     View Report
                     </Button>
                     {/* </div> */}

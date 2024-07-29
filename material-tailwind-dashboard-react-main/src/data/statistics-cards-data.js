@@ -4,7 +4,7 @@ export const statisticsCardsData = [
   {
     color: "gray",
     icon: CheckCircleIcon,
-    title: "Vehicle Status",
+    title: "Vehicles",
     value: "",
     footer: {
       color: "orange",
@@ -22,7 +22,7 @@ export const statisticsCardsData = [
   {
     color: "gray",
     icon: CheckCircleIcon,
-    title: "Equipment Status",
+    title: "Drivers",
     value: "",
     footer: {
       color: "",
@@ -56,7 +56,7 @@ export const statisticsCardsData = [
   {
     color: "gray",
     icon: ExclamationCircleIcon,
-    title: "Open Issues",
+    title: "Total emissions",
     value: "",
     footer: {
       color: "",

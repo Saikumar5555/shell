@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Typography, Card, CardBody, Button, Input } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
-import LorryImage from "/home/sai/Downloads/material-tailwind-dashboard-react-main (1)/material-tailwind-dashboard-react-main/src/pages/dashboard/lorry.jpg";
+import LorryImage from "/home/sai/Documents/Saikumar/shell/shell/material-tailwind-dashboard-react-main/src/pages/dashboard/img/lorry.jpg";
 
 const VehicleData = [
   {
@@ -307,7 +307,7 @@ function Fleet() {
                   type="text"
                   label="Fuel"
                   value={vehicle.fuel}
-                  onChange={(e) => handleInputChange(e, index, "fuel")}
+                  onChange={(e) => handleInputChange (e, index, "fuel")}
                   fullWidth
                 />
               </div>
@@ -351,26 +351,52 @@ function Fleet() {
           onClick={navigateToAddVehicle}
           style={{ backgroundColor: "#FD6F52", color: "white" }}
         >
-          + Add New Vehicle
+          + Add 
         </Button>
       </div>
 
-      <div className="mb-6">
-        <div className="flex space-x-4 mb-4">
-          {["All", "On Trip", "Under Maintenance", "Un-Assigned"].map((status) => (
-            <Button
-              key={status}
-              onClick={() => handleFilterChange(status)}
-              style={{
-                backgroundColor: filter === status ? "#FD6F52" : "white",
-                color: filter === status ? "white" : "black",
-              }}
-            >
-              {status}
-            </Button>
-          ))}
+      <div className="p-4">
+      <div className="flex items-center mb-4 space-x-2">
+  <Typography
+    variant="button"
+    className={`${
+      filter === "All" ? "font-bold underline" : ""
+    } cursor-pointer py-2 px-4 rounded`}
+    onClick={() => handleFilterChange("All")}
+  >
+    All
+  </Typography>
+  <Typography
+    variant="button"
+    className={`${
+      filter === "On Trip" ? "font-bold underline" : ""
+    } cursor-pointer py-2 px-4 rounded`}
+    onClick={() => handleFilterChange("On Trip")}
+  >
+    On Trip
+  </Typography>
+  <Typography
+    variant="button"
+    className={`${
+      filter === "Under Maintenance" ? " font-bold underline" : ""
+    } cursor-pointer py-2 px-4 rounded`}
+    onClick={() => handleFilterChange("Under Maintenance")}
+  >
+    Under Maintenance
+  </Typography>
+  <Typography
+    variant="button"
+    className={`${
+      filter === "Un-Assigned" ? " font-bold underline" : ""
+    } cursor-pointer py-2 px-4 rounded`}
+    onClick={() => handleFilterChange("Un-Assigned")}
+  >
+    Un-Assigned
+  </Typography>
+</div>
+
+
         </div>
-      </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
         {filteredVehicleData.map((vehicle) => (
@@ -405,7 +431,7 @@ function Fleet() {
             </CardBody>
           </Card>
         ))}
-      </div>
+      </div>  
     </div>
   );
 }

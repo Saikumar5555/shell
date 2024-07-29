@@ -9,3 +9,5 @@ export { default as WorkOrders } from './workOrders';
 export { default as Analytics } from './analytics';
 export { default as Drivers } from './drivers';
 export { default as Trips } from './trips';
+export { default as Cost } from './cost';
+export { default as Emission } from './Emission';

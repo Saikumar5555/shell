@@ -6,6 +6,7 @@ import {
   Typography,
   Input,
   Button,
+  Radio,
 } from "@material-tailwind/react";
 import TruckImage from "./lorry.jpg";
 
@@ -38,8 +39,11 @@ function Assign() {
       fromLocation: "",
       toLocation: "",
       dimensions: "",
-      temperatureControl: "",
+      refrigeration: null, // null for unselected, true for yes, false for no
       deliveryDate: "",
+      pickupDate: "",
+      driverName: "", // Added driverName field
+      driverID: "", // Added driverID field
     },
   ]);
   const [view, setView] = useState("form"); // State to switch between views
@@ -52,7 +56,11 @@ function Assign() {
 
   const handleInputChange = (e, index, field) => {
     const newFreightData = [...freightData];
-    newFreightData[index][field] = e.target.value;
+    if (field === "refrigeration") {
+      newFreightData[index][field] = e.target.value === "yes";
+    } else {
+      newFreightData[index][field] = e.target.value;
+    }
     setFreightData(newFreightData);
   };
 
@@ -65,8 +73,11 @@ function Assign() {
         fromLocation: "",
         toLocation: "",
         dimensions: "",
-        temperatureControl: "",
+        refrigeration: null,
         deliveryDate: "",
+        pickupDate: "",
+        driverName: "", // Initialize driverName for new freight
+        driverID: "", // Initialize driverID for new freight
       },
     ]);
   };
@@ -92,7 +103,7 @@ function Assign() {
         <Button
           onClick={handleBack}
           style={{ backgroundColor: "#FD6F52", color: "white" }}
-          className="mb-4"
+          className="mb-4 rounded-lg"
         >
           Back
         </Button>
@@ -123,31 +134,20 @@ function Assign() {
               </Card>
             ))}
           </div>
-        </div>
-        <div>
-          <Typography variant="h5" className="text-gray-800 font-medium mb-6">
-            What If Analysis
+          <Typography variant="h5" className="text-gray-800 font-medium mt-8 mb-4">
+            Assigned Driver
           </Typography>
-          <Card className="flex items-start flex-row space-x-6 p-6 shadow-lg rounded-lg bg-white">
-            <img
-              src={TruckImage}
-              alt="Analysis"
-              className="h-80 w-80 object-cover rounded-lg border border-gray-200"
-            />
-            <div className="flex flex-col space-y-4 text-gray-700 w-full max-w-lg">
-              <Typography variant="body1">
-                <strong>Reduced emissions by 60 percent.</strong>
-              </Typography>
-              <Typography variant="body1">
-                <strong>Reduced fuel cost by 20 percent.</strong>
-              </Typography>
-              <Typography variant="body1">
-                <strong>Reduced maintenance cost by 30 percent.</strong>
-              </Typography>
-              <Typography variant="body1">
-                <strong>Reduction in downtime by 10 percent.</strong>
-              </Typography>
-            </div>
+          <Card className="mb-6 p-6 bg-white border border-gray-300 rounded-lg shadow-md w-full">
+            <CardBody className="flex flex-col gap-4">
+              <div className="grid grid-cols-3 gap-4 items-center">
+                <Typography>Driver Name</Typography>
+                <Typography className="col-span-2 font-medium">John Doe</Typography>
+              </div>
+              <div className="grid grid-cols-3 gap-4 items-center">
+                <Typography>Driver ID</Typography>
+                <Typography className="col-span-2 font-medium">D123456</Typography>
+              </div>
+            </CardBody>
           </Card>
         </div>
       </div>
@@ -178,7 +178,7 @@ function Assign() {
       {freightData.map((freight, index) => (
         <Card
           key={index}
-          className="mb-6 p-6 bg-white border border-gray-300 rounded shadow-md w-full"
+          className="mb-6 p-6 bg-white border border-gray-300 rounded-lg shadow-md w-full"
         >
           <CardHeader
             floated={false}
@@ -191,9 +191,10 @@ function Assign() {
             </Typography>
             <Button
               onClick={handleNext}
-              style={{ backgroundColor: "#FD6F52", color: "white" }} // Inline styles for button color
+              style={{ backgroundColor: "#FD6F52", color: "white" }}
+              className="mt-4 mb-4 rounded-lg"
             >
-              Next
+              Show vehicles
             </Button>
           </CardHeader>
           <CardBody className="flex flex-col gap-4">
@@ -209,14 +210,14 @@ function Assign() {
               />
             </div>
             <div className="grid grid-cols-3 gap-4 items-center">
-              <Typography>Size (kg)</Typography>
+              <Typography>Size (Tons)</Typography>
               <Input
                 type="text"
                 name="size"
                 value={freight.size}
                 onChange={(e) => handleInputChange(e, index, "size")}
                 className="col-span-2"
-                label="Size (kg)"
+                label="Size (Tons)"
               />
             </div>
             <div className="grid grid-cols-3 gap-4 items-center">
@@ -253,14 +254,35 @@ function Assign() {
               />
             </div>
             <div className="grid grid-cols-3 gap-4 items-center">
-              <Typography>Temperature Control</Typography>
+              <Typography>Refrigeration</Typography>
+              <div className="col-span-2 flex items-center space-x-4">
+                <Radio
+                  id={`refrigeration-yes-${index}`}
+                  name={`refrigeration-${index}`}
+                  value="yes"
+                  checked={freight.refrigeration === true}
+                  onChange={(e) => handleInputChange(e, index, "refrigeration")}
+                  label="Yes"
+                />
+                <Radio
+                  id={`refrigeration-no-${index}`}
+                  name={`refrigeration-${index}`}
+                  value="no"
+                  checked={freight.refrigeration === false}
+                  onChange={(e) => handleInputChange(e, index, "refrigeration")}
+                  label="No"
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-3 gap-4 items-center">
+              <Typography>Pickup Date</Typography>
               <Input
-                type="text"
-                name="temperatureControl"
-                value={freight.temperatureControl}
-                onChange={(e) => handleInputChange(e, index, "temperatureControl")}
+                type="date"
+                name="pickupDate"
+                value={freight.pickupDate}
+                onChange={(e) => handleInputChange(e, index, "pickupDate")}
                 className="col-span-2"
-                label="Temperature Control"
+                label="Pickup Date"
               />
             </div>
             <div className="grid grid-cols-3 gap-4 items-center">
@@ -279,9 +301,10 @@ function Assign() {
       ))}
       <Button
         style={{ backgroundColor: "#FD6F52", color: "white" }}
-        className="mt-4"
+        className="mt-4 rounded-lg"
+        onClick={addNewFreight}
       >
-        Save Freights
+        Add New Freight
       </Button>
     </div>
   );
